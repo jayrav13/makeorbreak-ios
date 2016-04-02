@@ -11,6 +11,7 @@
 		E549DD281CB0578E0040AD78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD271CB0578E0040AD78 /* API.swift */; };
 		E549DD2A1CB059810040AD78 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD291CB059810040AD78 /* IntroViewController.swift */; };
 		E549DD2C1CB0656E0040AD78 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */; };
+		E549DD2E1CB078FA0040AD78 /* AddRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD2D1CB078FA0040AD78 /* AddRequestViewController.swift */; };
 		E55E8DB71CB0524F00B99340 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E8DB61CB0524F00B99340 /* AppDelegate.swift */; };
 		E55E8DB91CB0524F00B99340 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55E8DB81CB0524F00B99340 /* ViewController.swift */; };
 		E55E8DBC1CB0524F00B99340 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E55E8DBA1CB0524F00B99340 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		E549DD271CB0578E0040AD78 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E549DD291CB059810040AD78 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
+		E549DD2D1CB078FA0040AD78 /* AddRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRequestViewController.swift; sourceTree = "<group>"; };
 		E55E8DB31CB0524F00B99340 /* MakeOrBreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MakeOrBreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E55E8DB61CB0524F00B99340 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E55E8DB81CB0524F00B99340 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				E549DD291CB059810040AD78 /* IntroViewController.swift */,
 				E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */,
+				E549DD2D1CB078FA0040AD78 /* AddRequestViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E549DD2E1CB078FA0040AD78 /* AddRequestViewController.swift in Sources */,
 				E549DD2C1CB0656E0040AD78 /* RequestsViewController.swift in Sources */,
 				E55E8DB91CB0524F00B99340 /* ViewController.swift in Sources */,
 				E549DD281CB0578E0040AD78 /* API.swift in Sources */,

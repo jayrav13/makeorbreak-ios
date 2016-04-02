@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 import MaterialTextField
+import CoreLocation
 
-class IntroViewController : UIViewController, UITextFieldDelegate {
+class IntroViewController : UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     var usernameTextField : MFTextField!
     var phoneNumberTextField : MFTextField!
     var logoImageView : UIImageView!
+    var locationManager : CLLocationManager!
     
     var loginButton : UIButton!
     
@@ -58,6 +60,13 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
         self.logoImageView = UIImageView(image: UIImage(named: "mob-image"))
         self.logoImageView.frame = CGRect(x: Standard.screenWidth * 0.25, y: Standard.screenHeight * 0.1, width: Standard.screenWidth * 0.5, height: Standard.screenWidth * 0.5)
         self.view.addSubview(self.logoImageView)
+        
+        // Location Setup
+        self.locationManager = CLLocationManager()
+        self.locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
     }
     
     override func didReceiveMemoryWarning() {

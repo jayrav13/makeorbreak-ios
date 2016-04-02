@@ -34,6 +34,8 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.view.addSubview(self.tableView)
         
         self.addBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addRequest:")
+        self.addBarButtonItem.tintColor = UIColor.yellowColor()
+        self.navigationItem.rightBarButtonItem = self.addBarButtonItem
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,6 +60,11 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
+    }
+    
+    func addRequest(sender: UIButton) {
+        var addVC : AddRequestViewController = AddRequestViewController()
+        self.navigationController?.pushViewController(addVC, animated: true)
     }
     
 }
