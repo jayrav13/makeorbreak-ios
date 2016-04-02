@@ -8,31 +8,56 @@
 
 import Foundation
 import UIKit
+import MaterialTextField
 
 class IntroViewController : UIViewController, UITextFieldDelegate {
     
-    var textField : UITextField!
-    var loginButton : UIBarButtonItem!
+    var usernameTextField : MFTextField!
+    var phoneNumberTextField : MFTextField!
+    var logoImageView : UIImageView!
+    
+    var loginButton : UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.title = "Make 0r Break"
+        self.title = "MakeOrBreak"
         
-        self.textField = UITextField()
-        self.textField.frame = CGRect(x: Standard.screenWidth * 0.25, y: Standard.screenHeight * 0.2, width: Standard.screenWidth * 0.5, height: Standard.screenHeight * 0.05)
-        self.textField.borderStyle = UITextBorderStyle.Bezel
-        self.textField.layer.cornerRadius = 5
-        self.textField.userInteractionEnabled = true
-        self.textField.delegate = self
-        self.textField.spellCheckingType = UITextSpellCheckingType.No
-        self.view.addSubview(self.textField)
+        self.usernameTextField = MFTextField()
+        self.usernameTextField.frame = CGRect(x: Standard.screenWidth * 0.15, y: Standard.screenHeight * 0.40, width: Standard.screenWidth * 0.70, height: Standard.screenHeight * 0.05)
+        self.usernameTextField.userInteractionEnabled = true
+        self.usernameTextField.delegate = self
+        self.usernameTextField.placeholder = "Username"
+        self.usernameTextField.textAlignment = NSTextAlignment.Center
+        self.usernameTextField.placeholderAnimatesOnFocus = true
+        self.usernameTextField.spellCheckingType = UITextSpellCheckingType.No
+        self.view.addSubview(self.usernameTextField)
         
-        self.loginButton = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: "login:")
-        self.navigationItem.rightBarButtonItem = self.loginButton
+        self.phoneNumberTextField = MFTextField()
+        self.phoneNumberTextField.frame = CGRect(x: Standard.screenWidth * 0.15, y: Standard.screenHeight * 0.5, width: Standard.screenWidth * 0.70, height: Standard.screenHeight * 0.05)
+        self.phoneNumberTextField.placeholder = "Phone Number"
+        self.phoneNumberTextField.textAlignment = NSTextAlignment.Center
+        self.phoneNumberTextField.keyboardType = UIKeyboardType.NumberPad
+        self.phoneNumberTextField.placeholderAnimatesOnFocus = true
+        self.phoneNumberTextField.userInteractionEnabled = true
+        self.phoneNumberTextField.delegate = self
+        self.phoneNumberTextField.spellCheckingType = UITextSpellCheckingType.No
+        self.view.addSubview(self.phoneNumberTextField)
         
+        self.loginButton = UIButton(type: UIButtonType.System)
+        self.loginButton.setTitle("LOG IN", forState: UIControlState.Normal)
+        self.loginButton.addTarget(self, action: "login:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.loginButton.frame = CGRect(x: Standard.screenWidth * 0.15, y: Standard.screenHeight * 0.65, width: Standard.screenWidth * 0.70, height: Standard.screenHeight * 0.05)
+        self.loginButton.titleLabel?.textAlignment = NSTextAlignment.Center
+        self.loginButton.backgroundColor = UIColor.blackColor()
+        self.loginButton.setTitleColor(UIColor.yellowColor(), forState: UIControlState.Normal)
+        self.view.addSubview(self.loginButton)
+        
+        self.logoImageView = UIImageView(image: UIImage(named: "mob-image"))
+        self.logoImageView.frame = CGRect(x: Standard.screenWidth * 0.25, y: Standard.screenHeight * 0.1, width: Standard.screenWidth * 0.5, height: Standard.screenWidth * 0.5)
+        self.view.addSubview(self.logoImageView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,7 +73,20 @@ class IntroViewController : UIViewController, UITextFieldDelegate {
     }
     
     func login(sender: UIButton) {
-        print("Made it!")
+        API.isValid(self.usernameTextField.text!) { (success, data) -> Void in
+            if(success) {
+                // Go to app
+            }
+            else {
+                /*self.presentViewController(Elements.createAlert("Error", message: "Username unavailable - try another one!"), animated: true, completion: { () -> Void in
+                    
+                })*/
+                
+                self.presentViewController(UINavigationController(rootViewController: RequestsViewController()), animated: true, completion: { () -> Void in
+                    
+                })
+            }
+        }
     }
     
 }

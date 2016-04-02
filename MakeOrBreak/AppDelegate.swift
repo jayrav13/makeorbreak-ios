@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         let login : IntroViewController = IntroViewController()
-        let navLogin : UINavigationController = UINavigationController(rootViewController: login)
-        window?.rootViewController = navLogin
+        window?.rootViewController = login
         window?.makeKeyAndVisible()
         
         return true
