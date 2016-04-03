@@ -104,8 +104,7 @@ class ViewRequestViewController : UIViewController, LGChatControllerDelegate {
         self.navigationController!.pushViewController(chatController, animated: true)
     
         firebase!.observeEventType(.Value, withBlock: { snapshot in
-            var str : String? = snapshot.value["to"] as? String
-            print(str!)
+            let str : String? = snapshot.value["to"] as? String
             if(str! == NSAPI.getUsername()) {
                 self.addMessage("\(snapshot.value["message"])", user: "\(snapshot.value["from"])")
             }

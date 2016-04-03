@@ -15,7 +15,8 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
     var tableView : UITableView!
     var refreshControl : UIRefreshControl!
     var addBarButtonItem : UIBarButtonItem!
-
+    var settingsBarButtonItem : UIBarButtonItem!
+    
     var data : JSON!
     
     var requestTypeSegmentedControl : UISegmentedControl!
@@ -45,6 +46,10 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.addBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addRequest:")
         self.addBarButtonItem.tintColor = UIColor.yellowColor()
         self.navigationItem.rightBarButtonItem = self.addBarButtonItem
+        
+        self.settingsBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "addTagsPressed:")
+        self.settingsBarButtonItem.tintColor = UIColor.yellowColor()
+        self.navigationItem.leftBarButtonItem = self.settingsBarButtonItem
         
         self.requestTypeSegmentedControl = UISegmentedControl(items: ["All", "My", "Claimed"])
         self.requestTypeSegmentedControl.addTarget(self, action: "segmentedControlPressed:", forControlEvents: UIControlEvents.ValueChanged)
@@ -112,6 +117,10 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.refreshData(self.requestTypeSegmentedControl.selectedSegmentIndex)
         // make api call
         print("Testing Refresh")
+    }
+    
+    func addTagsPressed(sender : UIButton) {
+        self.navigationController?.pushViewController(TagsViewController(), animated: true)
     }
     
     func refreshData(index : Int) {

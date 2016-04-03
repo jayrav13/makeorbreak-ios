@@ -152,6 +152,44 @@ class API {
         }
     }
     
+    static func addTags(tag : String, completion : (success : Bool, data: JSON) -> Void) -> Void {
+        
+        let parameters : [String : AnyObject] = [
+            "tags" :
+                [
+                    "tag" : tag,
+                    "operation" : ""
+                ]
+        ]
+        
+        Alamofire.request(Method.POST, base_url + "/users/" + String(NSAPI.getUserId()) + "/tags/update", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in
+            
+            if(response.response?.statusCode == 200) {
+                completion(success: true, data: JSON(response.result.value!))
+            }
+            else {
+                completion(success: false, data: nil)
+            }
+            
+        }
+        
+    }
+    
+    static func getTags(completion : (success : Bool, data : JSON) -> Void) -> Void {
+        
+        Alamofire.request(Method.GET, base_url + "/users/" + String(NSAPI.getUserId()) + "/tags").responseJSON { (response) -> Void in
+            
+            if(response.response?.statusCode == 200) {
+                completion(success: true, data: JSON(response.result.value!))
+            }
+            else {
+                completion(success: false, data: nil)
+            }
+            
+        }
+        
+    }
+    
 }
 
 class NSAPI {
