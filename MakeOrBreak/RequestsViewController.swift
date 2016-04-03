@@ -84,6 +84,10 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        var vrvc : ViewRequestViewController = ViewRequestViewController()
+        vrvc.data = self.data["requests"][indexPath.row]
+        vrvc.type = self.requestTypeSegmentedControl.selectedSegmentIndex
+        self.navigationController?.pushViewController(vrvc, animated: true)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,7 +104,7 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func segmentedControlPressed(sender : UISegmentedControl) {
-        
+        self.refreshData(self.requestTypeSegmentedControl.selectedSegmentIndex)
     }
     
     func refreshPulled(sender: UIRefreshControl) {
@@ -114,24 +118,41 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         if(index == 0) {
             API.getUserRequests { (success, data) -> Void in
                 if(success) {
-                    print(data)
                     self.data = data
                     self.tableView.reloadData()
                 }
                 else {
-                    Elements.createAlert("Error", message: "Unable to get requests at this time. Please try again!")
+                    self.presentViewController(Elements.createAlert("Error", message: "Unable to get requests at this time. Please try again!"), animated: true, completion: { () -> Void in
+                        
+                    })
                 }
             }
         }
         else if(index == 1) {
-            API.getUserRequests { (success, data) -> Void in
+            API.getUserMadeRequests({ (success, data) -> Void in
                 if(success) {
-                    print(data)
+                    self.data = data
+                    self.tableView.reloadData()
                 }
                 else {
-                    Elements.createAlert("Error", message: "Unable to get requests at this time. Please try again!")
+                    self.presentViewController(Elements.createAlert("Error", message: "Unable to get requests at this time. Please try again!"), animated: true, completion: { () -> Void in
+                        
+                    })
                 }
-            }
+            })
+        }
+        else {
+            API.getUserClaimed({ (success, data) -> Void in
+                if(success) {
+                    self.data = data
+                    self.tableView.reloadData()
+                }
+                else {
+                    self.presentViewController(Elements.createAlert("Error", message: "Unable to get requests at this time. Please try again!"), animated: true, completion: { () -> Void in
+                        
+                    })
+                }
+            })
         }
     }
     

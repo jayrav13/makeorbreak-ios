@@ -25,6 +25,8 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
     
     var submitButton : UIButton!
     
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -118,7 +120,9 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
     
     func submitRequestPressed(sender: UIButton) {
         if(self.clarifyPending == true) {
-            Elements.createAlert("Error", message: "Image request in process - wait a few seconds and try again!")
+            self.presentViewController(Elements.createAlert("Error", message: "Image request in process - wait a few seconds and try again!"), animated: true, completion: { () -> Void in
+                
+            })
         }
         else {
             API.addRequest(self.titleTextField.text!, description: self.descriptionTextView.text!, image64: base64encode(self.imageView.image!), price: self.priceTextField.text!, completion: { (success, data) -> Void in
@@ -127,7 +131,9 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
                     self.navigationController?.popToRootViewControllerAnimated(true)
                 }
                 else {
-                    Elements.createAlert("Error", message: "Unable to post this request at this time - please try again!")
+                    self.presentViewController(Elements.createAlert("Error", message: "Unable to post this request at this time - please try again!"), animated: true, completion: { () -> Void in
+                        
+                    })
                 }
             })
         }

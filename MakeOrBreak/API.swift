@@ -121,6 +121,36 @@ class API {
             }
         }
     }
+    
+    static func getUserClaimed(completion : (success : Bool, data : JSON) -> Void) -> Void {
+        
+        Alamofire.request(Method.GET, base_url + "/users/" + String(NSAPI.getUserId()) + "/requests/claimed").responseJSON { (response) -> Void in
+            
+            if(response.response?.statusCode == 200) {
+                completion(success: true, data: JSON(response.result.value!))
+            }
+            else {
+                completion(success: false, data: nil)
+            }
+            
+        }
+        
+    }
+    
+    static func getUserMadeRequests(completion : (success : Bool, data : JSON) -> Void) -> Void {
+        
+        Alamofire.request(Method.GET, base_url + "/users/" + String(NSAPI.getUserId()) + "/requests").responseJSON { (response) -> Void in
+            
+            if(response.response?.statusCode == 200) {
+                completion(success: true, data: JSON(response.result.value!))
+            }
+            else {
+                completion(success: false, data: nil)
+            }
+            
+        }
+    }
+    
 }
 
 class NSAPI {
