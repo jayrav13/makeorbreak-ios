@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4540DB9E7408651245131003 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A7CC11974BDDDAEFA4A1AB /* Pods.framework */; };
+		E50F6B921CB0F42B0080C6EF /* ViewRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50F6B911CB0F42A0080C6EF /* ViewRequestViewController.swift */; };
 		E549DD281CB0578E0040AD78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD271CB0578E0040AD78 /* API.swift */; };
 		E549DD2A1CB059810040AD78 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD291CB059810040AD78 /* IntroViewController.swift */; };
 		E549DD2C1CB0656E0040AD78 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		0852E7B9C5572605B3657F2A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3E5FBA1253BA87C76D908FD2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E50F6B911CB0F42A0080C6EF /* ViewRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRequestViewController.swift; sourceTree = "<group>"; };
 		E549DD271CB0578E0040AD78 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E549DD291CB059810040AD78 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				E549DD291CB059810040AD78 /* IntroViewController.swift */,
 				E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */,
 				E549DD2D1CB078FA0040AD78 /* AddRequestViewController.swift */,
+				E50F6B911CB0F42A0080C6EF /* ViewRequestViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				E55E8DB91CB0524F00B99340 /* ViewController.swift in Sources */,
 				E549DD281CB0578E0040AD78 /* API.swift in Sources */,
 				E55E8DB71CB0524F00B99340 /* AppDelegate.swift in Sources */,
+				E50F6B921CB0F42B0080C6EF /* ViewRequestViewController.swift in Sources */,
 				E549DD2A1CB059810040AD78 /* IntroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

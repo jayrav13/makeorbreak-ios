@@ -67,6 +67,7 @@ class IntroViewController : UIViewController, UITextFieldDelegate, CLLocationMan
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -99,8 +100,6 @@ class IntroViewController : UIViewController, UITextFieldDelegate, CLLocationMan
                 self.presentViewController(Elements.createAlert("Error", message: "Username unavailable - try another one!"), animated: true, completion: { () -> Void in
                     
                 })
-                
-                
             }
         }
     }

@@ -14,7 +14,7 @@ import CoreLocation
 
 class API {
     
-    static let base_url : String = "http://b6e99723.ngrok.io"
+    static let base_url : String = "http://93f104f9.ngrok.io"
     
     static func signin(username : String, phone_number : String, completion : (success : Bool, data : JSON) -> Void) -> Void {
         
@@ -24,12 +24,22 @@ class API {
             "long" : UserLocation.getLongitude(),
             "phone_number" : phone_number,
             "radius" : 15,
-            "device_id" : (UIDevice.currentDevice().identifierForVendor?.UUIDString)!
+            "device_id" : (UIDevice.currentDevice().identifierForVendor?.UUIDString)!,
+            "first_name" : "Jay",
+            "last_name" : "Ravaliya",
+            "address" : [
+                "street_number" : "1234",
+                "street_name" : "Main Street",
+                "city" : "Anytown",
+                "state" : "CA",
+                "zip" : "12345"
+            ]
         ]
         
         Alamofire.request(Method.POST, base_url + "/signin", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in
             
             if(response.response?.statusCode == 200) {
+                print(response.result.value!)
                 completion(success: true, data: JSON(response.result.value!))
             }
             else {
@@ -57,7 +67,7 @@ class API {
         }
     }
     
-    static func addRequest(title : String, description : String, image64 : String, completion : (success : Bool, data : JSON) -> Void) -> Void {
+    static func addRequest(title : String, description : String, image64 : String, price : String, completion : (success : Bool, data : JSON) -> Void) -> Void {
         
         let parameters : [String : AnyObject] = [
             "user_id" : NSAPI.getUserId(),
@@ -66,11 +76,42 @@ class API {
                 "description" : description,
                 "lat" : UserLocation.getLatitude(),
                 "long" : UserLocation.getLongitude(),
-                "image64" : image64
+                "image_url" : image64,
+                "price" : price
             ]
         ]
         
         Alamofire.request(Method.POST, base_url + "/requests", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in
+            
+            if(response.response?.statusCode == 200) {
+                completion(success: true, data: JSON(response.result.value!))
+            }
+            else {
+                completion(success: false, data: nil)
+            }
+        }
+    }
+    
+    static func getUserRequests(completion : (success : Bool, data : JSON) -> Void) -> Void {
+        
+        Alamofire.request(Method.GET, base_url + "/users/" + String(NSAPI.getUserId()) + "/requests/local").responseJSON { (response) -> Void in
+            
+            if(response.response?.statusCode == 200) {
+                completion(success: true, data: JSON(response.result.value!))
+            }
+            else {
+                completion(success: false, data: nil)
+            }
+        }
+    }
+    
+    static func claimRequest(request_id : Int, completion : (success : Bool, data : JSON) -> Void) -> Void {
+        
+        let parameters : [String : AnyObject] = [
+            "user_id" : NSAPI.getUserId()
+        ]
+        
+        Alamofire.request(Method.POST, base_url + "/requests/" + String(request_id) + "/claim", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in
             
             if(response.response?.statusCode == 200) {
                 completion(success: true, data: JSON(response.result.value!))

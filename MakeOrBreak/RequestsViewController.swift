@@ -8,12 +8,15 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 class RequestsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tableView : UITableView!
     var refreshControl : UIRefreshControl!
     var addBarButtonItem : UIBarButtonItem!
+
+    var data : JSON!
     
     var requestTypeSegmentedControl : UISegmentedControl!
     
@@ -43,10 +46,28 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.addBarButtonItem.tintColor = UIColor.yellowColor()
         self.navigationItem.rightBarButtonItem = self.addBarButtonItem
         
-        self.requestTypeSegmentedControl = UISegmentedControl()
+        self.requestTypeSegmentedControl = UISegmentedControl(items: ["All", "My", "Claimed"])
         self.requestTypeSegmentedControl.addTarget(self, action: "segmentedControlPressed:", forControlEvents: UIControlEvents.ValueChanged)
-        self.requestTypeSegmentedControl.frame = CGRect(x: Standard.screenWidth * 0.3, y: Standard.screenHeight * 0, width: Standard.screenWidth * 0.2, height: Standard.screenHeight * 0.2)
+        self.requestTypeSegmentedControl.frame = CGRect(x: Standard.screenWidth * 0.3, y: Standard.screenHeight * 0, width: Standard.screenWidth * 0.2, height: 28)
+        self.requestTypeSegmentedControl.backgroundColor = UIColor.yellowColor()
+        self.requestTypeSegmentedControl.layer.cornerRadius = 5;
+        self.requestTypeSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.blackColor()], forState: UIControlState.Normal)
+        self.requestTypeSegmentedControl.tintColor = UIColor.blackColor()
+        self.requestTypeSegmentedControl.selectedSegmentIndex = 0
         self.navigationItem.titleView = self.requestTypeSegmentedControl
+        
+        self.data = []
+        self.refreshData(self.requestTypeSegmentedControl.selectedSegmentIndex)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.refreshData(self.requestTypeSegmentedControl.selectedSegmentIndex)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        self.refreshData(self.requestTypeSegmentedControl.selectedSegmentIndex)
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,8 +77,8 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell")
         cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "cell")
-        cell?.textLabel?.text = "Test"
-        cell?.detailTextLabel?.text = "Test"
+        cell?.textLabel?.text = self.data["requests"][indexPath.row]["title"].stringValue
+        cell?.detailTextLabel?.text = "$ " + String(self.data["requests"][indexPath.row]["price"].intValue)
         return cell!
     }
     
@@ -66,7 +87,7 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.data["requests"].count
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -78,10 +99,40 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.navigationController?.pushViewController(addVC, animated: true)
     }
     
+    func segmentedControlPressed(sender : UISegmentedControl) {
+        
+    }
+    
     func refreshPulled(sender: UIRefreshControl) {
         sender.endRefreshing()
+        self.refreshData(self.requestTypeSegmentedControl.selectedSegmentIndex)
         // make api call
         print("Testing Refresh")
+    }
+    
+    func refreshData(index : Int) {
+        if(index == 0) {
+            API.getUserRequests { (success, data) -> Void in
+                if(success) {
+                    print(data)
+                    self.data = data
+                    self.tableView.reloadData()
+                }
+                else {
+                    Elements.createAlert("Error", message: "Unable to get requests at this time. Please try again!")
+                }
+            }
+        }
+        else if(index == 1) {
+            API.getUserRequests { (success, data) -> Void in
+                if(success) {
+                    print(data)
+                }
+                else {
+                    Elements.createAlert("Error", message: "Unable to get requests at this time. Please try again!")
+                }
+            }
+        }
     }
     
 }

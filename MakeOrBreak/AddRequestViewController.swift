@@ -19,6 +19,7 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
     
     var titleTextField : MFTextField!
     var descriptionTextView : UITextView!
+    var priceTextField : MFTextField!
     
     var clarifyPending : Bool!
     
@@ -55,11 +56,22 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
         self.view.addSubview(self.titleTextField)
         
         self.descriptionTextView = UITextView()
-        self.descriptionTextView.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.25, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.2)
+        self.descriptionTextView.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.3, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.15)
         self.descriptionTextView.layer.borderWidth = 2
         self.descriptionTextView.layer.borderColor = UIColor.blackColor().CGColor
         self.descriptionTextView.layer.cornerRadius = 5
+        self.descriptionTextView.text = "Add details here..."
         self.view.addSubview(self.descriptionTextView)
+        
+        self.priceTextField = MFTextField()
+        self.priceTextField.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.2, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.05)
+        self.priceTextField.userInteractionEnabled = true
+        self.priceTextField.delegate = self
+        self.priceTextField.placeholder = "Price"
+        self.priceTextField.textAlignment = NSTextAlignment.Center
+        self.priceTextField.placeholderAnimatesOnFocus = true
+        self.priceTextField.keyboardType = UIKeyboardType.NumberPad
+        self.view.addSubview(self.priceTextField)
 
         self.submitButton = UIButton(type: UIButtonType.System)
         self.submitButton.setTitle("Submit", forState: UIControlState.Normal)
@@ -109,7 +121,7 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
             Elements.createAlert("Error", message: "Image request in process - wait a few seconds and try again!")
         }
         else {
-            API.addRequest(self.titleTextField.text!, description: self.descriptionTextView.text!, image64: base64encode(self.imageView.image!), completion: { (success, data) -> Void in
+            API.addRequest(self.titleTextField.text!, description: self.descriptionTextView.text!, image64: base64encode(self.imageView.image!), price: self.priceTextField.text!, completion: { (success, data) -> Void in
                 
                 if(success) {
                     self.navigationController?.popToRootViewControllerAnimated(true)
@@ -117,7 +129,6 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
                 else {
                     Elements.createAlert("Error", message: "Unable to post this request at this time - please try again!")
                 }
-                
             })
         }
     }
