@@ -77,8 +77,9 @@ class API {
                 "lat" : UserLocation.getLatitude(),
                 "long" : UserLocation.getLongitude(),
                 "image_url" : image64,
-                "price" : price
-            ]
+                "price" : price,
+            ],
+            "tags" : []
         ]
         
         Alamofire.request(Method.POST, base_url + "/requests", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in

@@ -22,15 +22,8 @@ class ViewRequestViewController : UIViewController {
     
     var actionButton : UIButton!
     
-    var myRootRef = Firebase(url: "https://makeorbreak.firebaseio.com")
-        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        myRootRef.setValue(["key" : "value"])
-        myRootRef.observeEventType(.Value, withBlock: { snapshot in
-            print("\(snapshot.key) -> \(snapshot.value)")
-        })
 
         self.view.backgroundColor = UIColor.whiteColor()
         
@@ -66,6 +59,9 @@ class ViewRequestViewController : UIViewController {
         self.actionButton.addTarget(self, action: "actionButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         self.actionButton.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenWidth * 0.6, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.1)
         self.view.addSubview(self.actionButton)
+        
+        print(data)
+        
         
     }
     

@@ -10,6 +10,8 @@
 		4540DB9E7408651245131003 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A7CC11974BDDDAEFA4A1AB /* Pods.framework */; };
 		E50F6B921CB0F42B0080C6EF /* ViewRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50F6B911CB0F42A0080C6EF /* ViewRequestViewController.swift */; };
 		E50F6B9B1CB123A00080C6EF /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E50F6B9A1CB123A00080C6EF /* libstdc++.tbd */; };
+		E50F6B9E1CB1318C0080C6EF /* LGSimpleChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50F6B9D1CB1318C0080C6EF /* LGSimpleChat.swift */; };
+		E50F6BA01CB131A40080C6EF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50F6B9F1CB131A40080C6EF /* ChatViewController.swift */; };
 		E549DD281CB0578E0040AD78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD271CB0578E0040AD78 /* API.swift */; };
 		E549DD2A1CB059810040AD78 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD291CB059810040AD78 /* IntroViewController.swift */; };
 		E549DD2C1CB0656E0040AD78 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */; };
@@ -29,6 +31,8 @@
 		E50F6B981CB123450080C6EF /* TwilioCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwilioCommon.framework; path = Pods/TwilioCommon/TwilioCommon.framework; sourceTree = "<group>"; };
 		E50F6B9A1CB123A00080C6EF /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		E50F6B9C1CB124A00080C6EF /* twiliochat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twiliochat-Bridging-Header.h"; sourceTree = "<group>"; };
+		E50F6B9D1CB1318C0080C6EF /* LGSimpleChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGSimpleChat.swift; sourceTree = "<group>"; };
+		E50F6B9F1CB131A40080C6EF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		E549DD271CB0578E0040AD78 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E549DD291CB059810040AD78 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 				E549DD2B1CB0656E0040AD78 /* RequestsViewController.swift */,
 				E549DD2D1CB078FA0040AD78 /* AddRequestViewController.swift */,
 				E50F6B911CB0F42A0080C6EF /* ViewRequestViewController.swift */,
+				E50F6B9F1CB131A40080C6EF /* ChatViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -129,6 +134,7 @@
 				E55E8DB61CB0524F00B99340 /* AppDelegate.swift */,
 				E55E8DB81CB0524F00B99340 /* ViewController.swift */,
 				E50F6B9C1CB124A00080C6EF /* twiliochat-Bridging-Header.h */,
+				E50F6B9D1CB1318C0080C6EF /* LGSimpleChat.swift */,
 				E55E8DBA1CB0524F00B99340 /* Main.storyboard */,
 				E55E8DBD1CB0524F00B99340 /* Assets.xcassets */,
 				E55E8DBF1CB0524F00B99340 /* LaunchScreen.storyboard */,
@@ -261,10 +267,12 @@
 			files = (
 				E549DD2E1CB078FA0040AD78 /* AddRequestViewController.swift in Sources */,
 				E549DD2C1CB0656E0040AD78 /* RequestsViewController.swift in Sources */,
+				E50F6B9E1CB1318C0080C6EF /* LGSimpleChat.swift in Sources */,
 				E55E8DB91CB0524F00B99340 /* ViewController.swift in Sources */,
 				E549DD281CB0578E0040AD78 /* API.swift in Sources */,
 				E55E8DB71CB0524F00B99340 /* AppDelegate.swift in Sources */,
 				E50F6B921CB0F42B0080C6EF /* ViewRequestViewController.swift in Sources */,
+				E50F6BA01CB131A40080C6EF /* ChatViewController.swift in Sources */,
 				E549DD2A1CB059810040AD78 /* IntroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
