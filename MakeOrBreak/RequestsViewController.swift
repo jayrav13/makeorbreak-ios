@@ -12,8 +12,10 @@ import UIKit
 class RequestsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tableView : UITableView!
-    
+    var refreshControl : UIRefreshControl!
     var addBarButtonItem : UIBarButtonItem!
+    
+    var requestTypeSegmentedControl : UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +35,18 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.tableView.dataSource = self
         self.view.addSubview(self.tableView)
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: "refreshPulled:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl)
+        
         self.addBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addRequest:")
         self.addBarButtonItem.tintColor = UIColor.yellowColor()
         self.navigationItem.rightBarButtonItem = self.addBarButtonItem
+        
+        self.requestTypeSegmentedControl = UISegmentedControl()
+        self.requestTypeSegmentedControl.addTarget(self, action: "segmentedControlPressed:", forControlEvents: UIControlEvents.ValueChanged)
+        self.requestTypeSegmentedControl.frame = CGRect(x: Standard.screenWidth * 0.3, y: Standard.screenHeight * 0, width: Standard.screenWidth * 0.2, height: Standard.screenHeight * 0.2)
+        self.navigationItem.titleView = self.requestTypeSegmentedControl
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,6 +76,12 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
     func addRequest(sender: UIButton) {
         var addVC : AddRequestViewController = AddRequestViewController()
         self.navigationController?.pushViewController(addVC, animated: true)
+    }
+    
+    func refreshPulled(sender: UIRefreshControl) {
+        sender.endRefreshing()
+        // make api call
+        print("Testing Refresh")
     }
     
 }

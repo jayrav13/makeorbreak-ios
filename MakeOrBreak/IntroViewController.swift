@@ -82,18 +82,25 @@ class IntroViewController : UIViewController, UITextFieldDelegate, CLLocationMan
     }
     
     func login(sender: UIButton) {
-        API.isValid(self.usernameTextField.text!) { (success, data) -> Void in
+        API.signin(self.usernameTextField.text!, phone_number: self.phoneNumberTextField.text!) { (success, data) -> Void in
             if(success) {
-                // Go to app
-            }
-            else {
-                /*self.presentViewController(Elements.createAlert("Error", message: "Username unavailable - try another one!"), animated: true, completion: { () -> Void in
-                    
-                })*/
+                NSAPI.setUserId(data["id"].intValue)
+                NSAPI.setUsername(data["username"].stringValue)
+                NSAPI.setToken(data["token"].stringValue)
+                
+                print(NSAPI.getToken())
+                print(NSAPI.getUserId())
+                print(NSAPI.getUsername())
                 
                 self.presentViewController(UINavigationController(rootViewController: RequestsViewController()), animated: true, completion: { () -> Void in
+                })
+            }
+            else {
+                self.presentViewController(Elements.createAlert("Error", message: "Username unavailable - try another one!"), animated: true, completion: { () -> Void in
                     
                 })
+                
+                
             }
         }
     }

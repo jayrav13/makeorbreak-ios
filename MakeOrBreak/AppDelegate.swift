@@ -17,9 +17,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        let login : IntroViewController = IntroViewController()
-        window?.rootViewController = login
-        window?.makeKeyAndVisible()
+        if(NSAPI.hasUsername()) {
+            
+            API.updateCoordinates({ (success, data) -> Void in
+                if(success) {
+                    let rvc : RequestsViewController = RequestsViewController()
+                    self.window?.rootViewController = UINavigationController(rootViewController: rvc)
+                    self.window?.makeKeyAndVisible()
+                }
+                else {
+                    Elements.createAlert("Error", message: "The network is down - please close the app and try again later!")
+                }
+            })
+            
+            
+        }
+        else {
+            let login : IntroViewController = IntroViewController()
+            window?.rootViewController = login
+            window?.makeKeyAndVisible()
+        }
+        
+        
         
         return true
     }
