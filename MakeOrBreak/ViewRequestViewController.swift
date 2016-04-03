@@ -11,7 +11,7 @@ import UIKit
 import SwiftyJSON
 import Firebase
 
-class ViewRequestViewController : UIViewController {
+class ViewRequestViewController : UIViewController, LGChatControllerDelegate {
     
     var data : JSON!
     var type : Int!
@@ -22,9 +22,14 @@ class ViewRequestViewController : UIViewController {
     
     var actionButton : UIButton!
     
+    var chatButton : UIBarButtonItem!
+    
+    var firebase: Firebase? = Firebase(url: "https://makeorbreak.firebaseIO.com")
+    
+    var chatController : LGChatController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.view.backgroundColor = UIColor.whiteColor()
         
         self.titleLabel = UILabel()
@@ -60,7 +65,10 @@ class ViewRequestViewController : UIViewController {
         self.actionButton.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenWidth * 0.6, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.1)
         self.view.addSubview(self.actionButton)
         
-        print(data)
+        if(data["fixer_name"].stringValue != data["breaker_name"].stringValue) {
+            self.chatButton = UIBarButtonItem(title: "Chat", style: UIBarButtonItemStyle.Plain, target: self, action: "launchChatController:")
+            self.navigationItem.rightBarButtonItem = self.chatButton
+        }
         
         
     }
@@ -87,6 +95,93 @@ class ViewRequestViewController : UIViewController {
         
     }
     
+    func launchChatController(sender: UIButton) {
+        self.chatController = LGChatController()
+        chatController.title = "Chat with ..."
+        let helloWorld = LGChatMessage(content: "Hello World!", sentBy: .User)
+        chatController.messages = [helloWorld]
+        chatController.delegate = self
+        self.navigationController!.pushViewController(chatController, animated: true)
+    
+        firebase!.observeEventType(.Value, withBlock: { snapshot in
+            var str : String? = snapshot.value["to"] as? String
+            print(str!)
+            if(str! == NSAPI.getUsername()) {
+                self.addMessage("\(snapshot.value["message"])", user: "\(snapshot.value["from"])")
+            }
+        })
+    }
+
+    func chatController(chatController: LGChatController, didAddNewMessage message: LGChatMessage) {
+        print("Did Add Message: \(message.content)")
+        let usernames = self.getUsernames()
+        self.firebase!.setValue([
+            "from" : usernames[0],
+            "to" : usernames[1],
+            "message" : message.content
+        ])
+    }
+    
+    func shouldChatController(chatController: LGChatController, addMessage message: LGChatMessage) -> Bool {
+        return true
+    }
+    
+    func addMessage(message : String, user : String) {
+        
+        var helloworld : LGChatMessage!
+        
+        if(NSAPI.getUserId() == self.data["user_id"].intValue) {
+            if(NSAPI.getUsername() == self.data["breaker_name"].stringValue) {
+                // me
+                helloworld = LGChatMessage(content: message, sentBy: LGChatMessage.SentBy.User)
+            }
+            else {
+                // other
+                helloworld = LGChatMessage(content: message, sentBy: LGChatMessage.SentBy.Opponent)
+            }
+        }
+        else {
+            if(NSAPI.getUsername() == self.data["fixer_name"].stringValue) {
+                // me
+                helloworld = LGChatMessage(content: message, sentBy: LGChatMessage.SentBy.User)
+            }
+            else {
+                // other
+                helloworld = LGChatMessage(content: message, sentBy: LGChatMessage.SentBy.Opponent)
+            }
+        }
+        
+        self.chatController.addNewMessage(helloworld)
+    }
+    
+    func getUsernames() -> [String] {
+        var usernames : [String] = ["",""]
+        if(NSAPI.getUserId() == self.data["user_id"].intValue) {
+            if(NSAPI.getUsername() == self.data["breaker_name"].stringValue) {
+                // me
+                usernames[0] = self.data["breaker_name"].stringValue
+                usernames[1] = self.data["fixer_name"].stringValue
+            }
+            else {
+                // other
+                usernames[0] = self.data["fixer_name"].stringValue
+                usernames[1] = self.data["breaker_name"].stringValue
+            }
+        }
+        else {
+            if(NSAPI.getUsername() == self.data["fixer_name"].stringValue) {
+                // me
+                usernames[0] = self.data["fixer_name"].stringValue
+                usernames[1] = self.data["breaker_name"].stringValue
+            }
+            else {
+                // other
+                usernames[0] = self.data["breaker_name"].stringValue
+                usernames[1] = self.data["fixer_name"].stringValue
+            }
+        }
+        return usernames;
+    }
     
 }
 

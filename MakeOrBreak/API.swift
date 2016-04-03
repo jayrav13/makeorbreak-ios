@@ -157,7 +157,7 @@ class API {
 class NSAPI {
     
     static func getUsername() -> String {
-        return String(NSUserDefaults.standardUserDefaults().objectForKey("username"))
+        return String(NSUserDefaults.standardUserDefaults().objectForKey("username")!)
     }
     
     static func setUsername(username : String) {
