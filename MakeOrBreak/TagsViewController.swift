@@ -15,6 +15,7 @@ class TagsViewController : UIViewController, UITableViewDelegate, UITableViewDat
     var tableView : UITableView!
     
     var addBarButtonItem : UIBarButtonItem!
+    var backBarButtonItem : UIBarButtonItem!
     
     var data : JSON!
     
@@ -30,7 +31,10 @@ class TagsViewController : UIViewController, UITableViewDelegate, UITableViewDat
         self.view.addSubview(self.tableView)
         
         self.addBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTagsPressed:")
+        self.addBarButtonItem.tintColor = UIColor.yellowColor()
         self.navigationItem.rightBarButtonItem = self.addBarButtonItem
+        
+        self.navigationController?.navigationBar.topItem?.title = "Back"
         
         self.data = []
         self.refreshData()

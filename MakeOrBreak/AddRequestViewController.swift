@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MaterialTextField
 
+
 class AddRequestViewController : UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
     
     var photoBarButtonItem : UIBarButtonItem!
@@ -33,6 +34,8 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
         self.view.backgroundColor = UIColor.whiteColor()
         self.title = "Add Request"
         
+        self.navigationController?.navigationBar.topItem?.title = "Back"
+        
         self.photoBarButtonItem = UIBarButtonItem(title: "Photo", style: UIBarButtonItemStyle.Plain, target: self, action: "photoButtonPressed:")
         self.navigationItem.rightBarButtonItem = self.photoBarButtonItem
         
@@ -42,13 +45,13 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
         
         self.imageView = UIImageView(image: UIImage(named: "placeholder"))
         self.imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        self.imageView.frame = CGRect(x: Standard.screenWidth * 0.3, y: Standard.screenHeight * 0.5, width: Standard.screenWidth * 0.4, height: Standard.screenWidth * 0.2)
-        self.imageView.layer.borderWidth = 2
+        self.imageView.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.55, width: Standard.screenWidth * 0.6, height: Standard.screenWidth * 0.3)
+        // self.imageView.layer.borderWidth = 1
         self.imageView.layer.borderColor = UIColor.blackColor().CGColor
         self.view.addSubview(self.imageView)
         
         self.titleTextField = MFTextField()
-        self.titleTextField.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.1, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.05)
+        self.titleTextField.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.15, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.05)
         self.titleTextField.userInteractionEnabled = true
         self.titleTextField.delegate = self
         self.titleTextField.placeholder = "Title"
@@ -58,15 +61,15 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
         self.view.addSubview(self.titleTextField)
         
         self.descriptionTextView = UITextView()
-        self.descriptionTextView.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.3, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.15)
-        self.descriptionTextView.layer.borderWidth = 2
+        self.descriptionTextView.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.35, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.15)
+        self.descriptionTextView.layer.borderWidth = 0.5
         self.descriptionTextView.layer.borderColor = UIColor.blackColor().CGColor
         self.descriptionTextView.layer.cornerRadius = 5
         self.descriptionTextView.text = "Add details here..."
         self.view.addSubview(self.descriptionTextView)
         
         self.priceTextField = MFTextField()
-        self.priceTextField.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.2, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.05)
+        self.priceTextField.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenHeight * 0.25, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.05)
         self.priceTextField.userInteractionEnabled = true
         self.priceTextField.delegate = self
         self.priceTextField.placeholder = "Price"
@@ -79,7 +82,7 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
         self.submitButton.setTitle("Submit", forState: UIControlState.Normal)
         self.submitButton.backgroundColor = UIColor.blackColor()
         self.submitButton.setTitleColor(UIColor.yellowColor(), forState: UIControlState.Normal)
-        self.submitButton.frame = CGRect(x: Standard.screenWidth * 0.25, y: Standard.screenHeight * 0.7, width: Standard.screenWidth * 0.5, height: Standard.screenHeight * 0.05)
+        self.submitButton.frame = CGRect(x: Standard.screenWidth * 0.25, y: Standard.screenHeight * 0.75, width: Standard.screenWidth * 0.5, height: Standard.screenHeight * 0.05)
         self.submitButton.addTarget(self, action: "submitRequestPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(self.submitButton)
         
@@ -100,7 +103,6 @@ class AddRequestViewController : UIViewController, UINavigationControllerDelegat
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         picker.dismissViewControllerAnimated(true) { () -> Void in
             self.imageView.image = image
-            print(self.base64encode(image))
             // Clarifai request
             
         }

@@ -41,8 +41,11 @@ class ViewRequestViewController : UIViewController, LGChatControllerDelegate {
         self.detailsLabel = UILabel()
         self.detailsLabel.text = self.data["description"].stringValue
         self.detailsLabel.textAlignment = NSTextAlignment.Center
-        self.detailsLabel.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenWidth * 0.3, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.1)
+        self.detailsLabel.frame = CGRect(x: Standard.screenWidth * 0.2, y: Standard.screenWidth * 0.3, width: Standard.screenWidth * 0.6, height: Standard.screenHeight * 0.3)
+        self.detailsLabel.numberOfLines = 3
         self.view.addSubview(self.detailsLabel)
+        
+        self.navigationController?.navigationBar.topItem?.title = "Back"
         
         self.priceLabel = UILabel()
         self.priceLabel.text = self.data["price"].stringValue
@@ -85,12 +88,23 @@ class ViewRequestViewController : UIViewController, LGChatControllerDelegate {
                     self.navigationController?.popToRootViewControllerAnimated(true)
                 }
                 else {
-                    Elements.createAlert("Error", message: "Sorry - this claim could not be processed")
+                    self.presentViewController(Elements.createAlert("Error", message: "Sorry - this claim could not be processed"), animated: true, completion: { () -> Void in
+                        
+                    })
                 }
             }
         }
         else if (self.type == 1) {
-            
+            API.postComplete(self.data["fixer_name"].stringValue, request_id: self.data["id"].intValue, completion: { (success, data) -> Void in
+                if(success) {
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                }
+                else {
+                    self.presentViewController(Elements.createAlert("Error", message: "Sorry - this request could not be completed!"), animated: true, completion: { () -> Void in
+                        
+                    })
+                }
+            })
         }
         
     }

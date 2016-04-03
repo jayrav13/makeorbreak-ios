@@ -33,7 +33,8 @@ class API {
                 "city" : "Anytown",
                 "state" : "CA",
                 "zip" : "12345"
-            ]
+            ],
+            "tags" : []
         ]
         
         Alamofire.request(Method.POST, base_url + "/signin", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in
@@ -156,10 +157,10 @@ class API {
         
         let parameters : [String : AnyObject] = [
             "tags" :
-                [
+                [[
                     "tag" : tag,
                     "operation" : ""
-                ]
+                ]]
         ]
         
         Alamofire.request(Method.POST, base_url + "/users/" + String(NSAPI.getUserId()) + "/tags/update", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in
@@ -187,6 +188,30 @@ class API {
             }
             
         }
+        
+    }
+    
+    static func postComplete(username : String, request_id : Int, completion : (success : Bool, data: JSON) -> Void) -> Void {
+        
+        let parameters : [String : AnyObject] = [
+            "username" : username
+        ]
+        
+        Alamofire.request(Method.POST, base_url + "/requests/" + String(request_id) + "/claim/complete", parameters: parameters, encoding: ParameterEncoding.JSON, headers: nil).responseJSON { (response) -> Void in
+            
+            if(response.response?.statusCode == 200) {
+                completion(success: true, data: JSON(response.result.value!))
+            }
+            else {
+                completion(success: false, data: nil)
+            }
+            
+        }
+        
+    }
+    
+    static func clarifai(completion : (success : Bool, data : JSON) -> Void) -> Void {
+        
         
     }
     

@@ -54,7 +54,7 @@ class RequestsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.requestTypeSegmentedControl = UISegmentedControl(items: ["All", "My", "Claimed"])
         self.requestTypeSegmentedControl.addTarget(self, action: "segmentedControlPressed:", forControlEvents: UIControlEvents.ValueChanged)
         self.requestTypeSegmentedControl.frame = CGRect(x: Standard.screenWidth * 0.3, y: Standard.screenHeight * 0, width: Standard.screenWidth * 0.2, height: 28)
-        self.requestTypeSegmentedControl.backgroundColor = UIColor.yellowColor()
+        self.requestTypeSegmentedControl.backgroundColor = UIColor.yellowColor() // UIColor(red: <#T##CGFloat#>, green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
         self.requestTypeSegmentedControl.layer.cornerRadius = 5;
         self.requestTypeSegmentedControl.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.blackColor()], forState: UIControlState.Normal)
         self.requestTypeSegmentedControl.tintColor = UIColor.blackColor()
